@@ -101,4 +101,26 @@ router.put('/:id/verify', authenticate, async (req, res) => {
     }
 });
 
+// Route to decline a payment
+router.put('/:id/decline', authenticate, async (req, res) => {
+    try {
+        if (req.user.userType !== 'employee') {
+            return res.status(403).json({ message: 'Access denied.' });
+        }
+
+        const payment = await Payment.findById(req.params.id);
+        if (!payment) {
+            return res.status(404).json({ message: 'Payment not found.' });
+        }
+
+        payment.status = 'declined';
+        await payment.save();
+
+        res.json({ message: 'Payment declined successfully.', payment });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error.', error: error.message });
+    }
+});
+
+
 export default router;

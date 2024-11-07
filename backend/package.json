@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node server.mjs",
     "dev": " nodemon server.mjs",
-    "add-employee": "node scripts/addEmployee.mjs"
+     "add-employeesAndCustomers": "node scripts/seedUsers.mjs"
   },
   "keywords": [],
   "author": "",

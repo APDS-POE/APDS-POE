@@ -45,9 +45,7 @@ const Navbar = () => {
                         <NavLink to="/login" style={{ marginRight: '20px', textDecoration: 'none' }}>
                             <Button colorScheme="teal">Login</Button>
                         </NavLink>
-                        <NavLink to="/register" style={{ textDecoration: 'none' }}>
-                            <Button colorScheme="teal">Register</Button>
-                        </NavLink>
+                       
                     </>
                 )}
             </Flex>

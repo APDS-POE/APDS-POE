@@ -1,36 +1,37 @@
-// src/components/HomePage.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   Box,
   Heading,
   Text,
-  Image,
-  Flex,
   Button,
   Grid,
-  Stack,
+  Flex,
   Icon,
   useColorModeValue,
+  Stack,
+  Avatar,
 } from '@chakra-ui/react';
 import { FaRocket, FaShieldAlt, FaHeadset } from 'react-icons/fa';
+import ParticlesComponent from './particles.js'; // Adjust path if necessary
 
 const HomePage = () => {
   return (
-    <Box>
+    <Box position="relative">
       {/* Hero Section */}
       <Box
-        bgImage="url('https://media.istockphoto.com/id/1249306214/photo/financial-technology-concept-fintech-online-banking-foreign-exchange.jpg?s=612x612&w=0&k=20&c=d-BUu-GRJTviVc9QfLICgo_QcRDJjC76MeSLm8-w_DI=')"
-        bgPosition="center"
-        bgRepeat="no-repeat"
-        bgSize="cover"
-        height={{ base: '400px', md: '600px' }}
         position="relative"
+        height={{ base: '400px', md: '600px' }}
         display="flex"
         alignItems="center"
         justifyContent="center"
         color="white"
       >
+        {/* Particles Background */}
+        <Box position="absolute" top="0" left="0" width="100%" height="100%" zIndex="-1">
+          <ParticlesComponent id="tsparticles" /> {/* Apply particles only within this box */}
+        </Box>
+
         <Box
           position="absolute"
           top="0"
@@ -38,6 +39,7 @@ const HomePage = () => {
           width="100%"
           height="100%"
           bgGradient="linear(to-r, rgba(0,0,0,0.6), rgba(0,0,0,0.6))"
+          
         />
         <Box position="relative" textAlign="center" px={4}>
           <Heading
@@ -52,19 +54,7 @@ const HomePage = () => {
           <Text fontSize={{ base: 'md', md: 'xl' }} mb={6} textShadow="1px 1px 2px rgba(0,0,0,0.6)">
             Seamlessly send and receive funds across the globe with unmatched security and speed.
           </Text>
-          <Button
-            as={Link}
-            to="/register"
-            colorScheme="teal"
-            size="lg"
-            px={8}
-            py={6}
-            fontSize="lg"
-            _hover={{ transform: 'scale(1.05)', boxShadow: 'lg' }}
-            transition="all 0.3s ease"
-          >
-            Get Started
-          </Button>
+          
         </Box>
       </Box>
 
@@ -141,18 +131,16 @@ const HomePage = () => {
         </Grid>
       </Box>
 
-      {/* Additional Section: Testimonials (Optional) */}
-      <Box py={16} px={4}>
+      {/* Testimonials Section */}
+      <Box py={16} px={4} bg={useColorModeValue('gray.100', 'gray.900')}>
         <Heading textAlign="center" mb={12} fontSize="3xl" fontWeight="bold">
-          What Our Users Say
+          What Our Clients Say
         </Heading>
-        <Flex
-          direction={{ base: 'column', md: 'row' }}
-          justify="center"
-          align="center"
+        <Grid
+          templateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }}
+          gap={8}
           maxW="1200px"
           mx="auto"
-          gap={8}
         >
           {/* Testimonial 1 */}
           <Box
@@ -160,12 +148,15 @@ const HomePage = () => {
             p={6}
             rounded="md"
             shadow="md"
-            maxW="400px"
+            textAlign="center"
           >
-            <Text fontStyle="italic" mb={4}>
-              "This payment portal has revolutionized the way I send money internationally. Fast, secure, and reliable!"
+            <Avatar name="Jane Doe" src="https://bit.ly/dan-abramov" mb={4} size="xl" />
+            <Text fontSize="lg" fontWeight="bold" color={useColorModeValue('gray.800', 'gray.200')}>
+              Jane Doe
             </Text>
-            <Text fontWeight="bold">- Jane Bane</Text>
+            <Text color={useColorModeValue('gray.600', 'gray.300')} mb={4}>
+              "This platform revolutionized the way I send and receive money. Fast, reliable, and secure. I couldn't ask for more!"
+            </Text>
           </Box>
 
           {/* Testimonial 2 */}
@@ -174,19 +165,37 @@ const HomePage = () => {
             p={6}
             rounded="md"
             shadow="md"
-            maxW="400px"
+            textAlign="center"
           >
-            <Text fontStyle="italic" mb={4}>
-              "Exceptional customer service and seamless transactions. Highly recommend to anyone needing international payments."
+            <Avatar name="John Smith" src="https://bit.ly/dan-abramov" mb={4} size="xl" />
+            <Text fontSize="lg" fontWeight="bold" color={useColorModeValue('gray.800', 'gray.200')}>
+              John Smith
             </Text>
-            <Text fontWeight="bold">- John Smith</Text>
+            <Text color={useColorModeValue('gray.600', 'gray.300')} mb={4}>
+              "Their customer service is outstanding! Every time I had a question, they were there to help immediately."
+            </Text>
           </Box>
-        </Flex>
+
+          {/* Testimonial 3 */}
+          <Box
+            bg={useColorModeValue('white', 'gray.700')}
+            p={6}
+            rounded="md"
+            shadow="md"
+            textAlign="center"
+          >
+            <Avatar name="Alice Johnson" src="https://bit.ly/dan-abramov" mb={4} size="xl" />
+            <Text fontSize="lg" fontWeight="bold" color={useColorModeValue('gray.800', 'gray.200')}>
+              Alice Johnson
+            </Text>
+            <Text color={useColorModeValue('gray.600', 'gray.300')} mb={4}>
+              "I’ve used many services, but this one is by far the best. Quick transfers and amazing customer care."
+            </Text>
+          </Box>
+        </Grid>
       </Box>
 
-      
-
-      {/* Footer Section (Optional) */}
+      {/* Footer Section */}
       <Box bg={useColorModeValue('gray.100', 'gray.900')} py={4}>
         <Text textAlign="center" color={useColorModeValue('gray.600', 'gray.400')}>
           © {new Date().getFullYear()} International Payment Portal. All rights reserved.

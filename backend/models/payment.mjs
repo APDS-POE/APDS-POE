@@ -36,9 +36,9 @@ const paymentSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'verified'],
+        enum: ['pending', 'verified', 'declined'], 
         default: 'pending',
-    },
+    },    
 }, { timestamps: true });
 
 const Payment = mongoose.model('Payment', paymentSchema);

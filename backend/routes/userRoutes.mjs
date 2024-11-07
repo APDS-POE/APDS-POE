@@ -1,4 +1,3 @@
-// routes/userRoutes.mjs
 import express from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -6,27 +5,30 @@ import User from '../models/User.mjs';
 
 const router = express.Router();
 
-// Register
+// Utility function for password hashing
+const hashPassword = async (password) => {
+    const salt = await bcrypt.genSalt(12);
+    return bcrypt.hash(password, salt);
+};
+
+// Register endpoint
 router.post('/register', async (req, res) => {
     try {
         const { fullName, idNumber, accountNumber, password } = req.body;
 
-        // Input Validation using RegEx
+        // Input Validation with more complex regex (now requires special character)
         const idNumberRegex = /^[0-9]{13}$/;
         const accountNumberRegex = /^[0-9]{10}$/;
-         // At least 8 characters, one digit, one lowercase, one uppercase
-        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()]).{8,}$/;
 
         if (!idNumberRegex.test(idNumber)) {
             return res.status(400).json({ message: 'Invalid ID number format.' });
         }
-
         if (!accountNumberRegex.test(accountNumber)) {
             return res.status(400).json({ message: 'Invalid account number format.' });
         }
-
         if (!passwordRegex.test(password)) {
-            return res.status(400).json({ message: 'Password must be at least 8 characters long and include uppercase, lowercase letters, and numbers.' });
+            return res.status(400).json({ message: 'Password must include uppercase, lowercase, numbers, and special characters.' });
         }
 
         // Check if user already exists
@@ -35,17 +37,9 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'User with given ID or account number already exists.' });
         }
 
-        // Hash Password and salt password
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
-
-        // Create User
-        const newUser = new User({
-            fullName,
-            idNumber,
-            accountNumber,
-            password: hashedPassword,
-        });
+        // Hash and save password
+        const hashedPassword = await hashPassword(password);
+        const newUser = new User({ fullName, idNumber, accountNumber, password: hashedPassword });
 
         await newUser.save();
         res.status(201).json({ message: 'User registered successfully.' });
@@ -54,29 +48,25 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Login
+// Login endpoint
 router.post('/login', async (req, res) => {
     try {
         const { idNumber, accountNumber, password } = req.body;
 
-        // Input Validation
         if (!idNumber || !accountNumber || !password) {
             return res.status(400).json({ message: 'Please provide all required fields.' });
         }
 
-        // Find User
         const user = await User.findOne({ idNumber, accountNumber });
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials.' });
         }
 
-        // Compare Passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
             return res.status(400).json({ message: 'Invalid credentials.' });
         }
 
-        // Create JWT
         const token = jwt.sign(
             { userId: user._id, userType: user.userType },
             process.env.JWT_SECRET,

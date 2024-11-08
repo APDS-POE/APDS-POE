@@ -150,7 +150,7 @@ const HomePage = () => {
             shadow="md"
             textAlign="center"
           >
-            <Avatar name="Jane Doe" src="https://bit.ly/dan-abramov" mb={4} size="xl" />
+            <Avatar name="Jane Doe" src="https://varbai.com/wp-content/uploads/2019/02/thispersondoesnotexis.jpg" mb={4} size="xl" />
             <Text fontSize="lg" fontWeight="bold" color={useColorModeValue('gray.800', 'gray.200')}>
               Jane Doe
             </Text>
@@ -184,7 +184,7 @@ const HomePage = () => {
             shadow="md"
             textAlign="center"
           >
-            <Avatar name="Alice Johnson" src="https://bit.ly/dan-abramov" mb={4} size="xl" />
+            <Avatar name="Alice Johnson" src="https://thispersonnotexist.org/static/img/Random_female_face_1.jpeg" mb={4} size="xl" />
             <Text fontSize="lg" fontWeight="bold" color={useColorModeValue('gray.800', 'gray.200')}>
               Alice Johnson
             </Text>

@@ -11,17 +11,14 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
-  # SonarQube scan job
+  # SonarQube scan job using a pre-built Docker image
   sonarqube:
     working_directory: ~/build
     docker:
-      - image: circleci/node:16  # Node.js image
+      - image: sonarsource/sonar-scanner-cli:latest  # Pre-built SonarQube image
     resource_class: small
     steps:
       - checkout
-      - run:
-          name: Install Sonar Scanner
-          command: npm install -g sonarqube-scanner
       - run: |
           echo "Setting SonarQube branch"
           SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
@@ -36,6 +33,7 @@ jobs:
             -Dsonar.sources="." \
             -Dsonar.exclusions="**/android/**,**/ios/**"
 
+# Define workflows
 workflows:
   build-and-scan:
     jobs:

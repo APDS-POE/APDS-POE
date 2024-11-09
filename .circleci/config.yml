@@ -15,7 +15,7 @@ jobs:
   sonarqube:
     working_directory: ~/build
     docker:
-      - image: circleci/node:18  # Use a Node.js image with version >= 18
+      - image: cimg/node:18.17.1  # Updated to a specific Node.js image
     resource_class: small
     steps:
       - checkout

@@ -1,9 +1,5 @@
 version: 2.1
 
-executors:
-  node-executor:
-    docker:
-      - image: circleci/node:16
 
 jobs:
   # Job to print "Hello, World!"
@@ -23,7 +19,6 @@ jobs:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
-      - checkout
       - run: find .
       - attach_workspace:
           at: /workspace

@@ -22,18 +22,19 @@ jobs:
       - run:
           name: Install Sonar Scanner
           command: npm install -g sonarqube-scanner
-     - run: |
-    SONAR_BRANCH="circleci-project-setup"  # or the branch you’re testing
-    echo "Using branch: $SONAR_BRANCH"
-    npx sonarqube-scanner \
-      -Dsonar.projectKey="${SONAR_PROJECT_KEY}" \
-      -Dsonar.organization="${SONAR_ORG}" \
-      -Dsonar.host.url="https://sonarcloud.io" \
-      -Dsonar.login="${SONAR_TOKEN}" \
-      -Dsonar.branch.name="${SONAR_BRANCH}" \
-      -Dsonar.sources="." \
-      -Dsonar.exclusions=""
-
+      - run:
+          name: Run SonarQube Scanner
+          command: |
+            SONAR_BRANCH="circleci-project-setup"  # or the branch you’re testing
+            echo "Using branch: $SONAR_BRANCH"
+            npx sonarqube-scanner \
+              -Dsonar.projectKey="${SONAR_PROJECT_KEY}" \
+              -Dsonar.organization="${SONAR_ORG}" \
+              -Dsonar.host.url="https://sonarcloud.io" \
+              -Dsonar.login="${SONAR_TOKEN}" \
+              -Dsonar.branch.name="${SONAR_BRANCH}" \
+              -Dsonar.sources="." \
+              -Dsonar.exclusions=""
 
 workflows:
   build-and-scan:

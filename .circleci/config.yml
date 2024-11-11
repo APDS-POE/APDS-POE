@@ -26,7 +26,7 @@ jobs:
           echo "Sonar organization value is: $SONAR_ORG"
           echo "Sonar project key is: $SONAR_PROJECT_KEY"
           
-          # Run SonarQube scan using npx without global installation
+          # Run SonarQube scan using npx, avoiding global installation
           npx sonarqube-scanner \
             -Dsonar.projectKey="${SONAR_PROJECT_KEY}" \
             -Dsonar.organization="${SONAR_ORG}" \
@@ -35,7 +35,7 @@ jobs:
             -Dsonar.branch.name="${SONAR_BRANCH}" \
             -Dsonar.sources="." \
             -Dsonar.exclusions="**/android/**,**/ios/**"
-
+      
 workflows:
   build-and-scan:
     jobs:

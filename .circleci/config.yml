@@ -25,17 +25,16 @@ jobs:
             SONAR_BRANCH="circleci-project-setup"  # or the branch you’re testing
             echo "Using branch: $SONAR_BRANCH"
             npx sonarqube-scanner \
-           -Dsonar.projectKey="${SONAR_PROJECT_KEY}" \
-           -Dsonar.organization="${SONAR_ORG}" \
-           -Dsonar.host.url="https://sonarcloud.io" \
-           -Dsonar.login="${SONAR_TOKEN}" \
-           -Dsonar.branch.name="${SONAR_BRANCH}" \
-           -Dsonar.sources="." \
-           -Dsonar.exclusions="" \
-           -Dsonar.c.file.suffixes=- \
-           -Dsonar.cpp.file.suffixes=- \
-           -Dsonar.objc.file.suffixes=-
-
+              -Dsonar.projectKey="${SONAR_PROJECT_KEY}" \
+              -Dsonar.organization="${SONAR_ORG}" \
+              -Dsonar.host.url="https://sonarcloud.io" \
+              -Dsonar.login="${SONAR_TOKEN}" \
+              -Dsonar.branch.name="${SONAR_BRANCH}" \
+              -Dsonar.sources="." \
+              -Dsonar.exclusions="" \
+              -Dsonar.c.file.suffixes=- \
+              -Dsonar.cpp.file.suffixes=- \
+              -Dsonar.objc.file.suffixes=-
 
 workflows:
   build-and-scan:

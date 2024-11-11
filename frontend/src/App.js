@@ -2,7 +2,6 @@
 import React from 'react';
 import { ChakraProvider } from '@chakra-ui/react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Payments from './components/payment'; // Corrected import (capital 'P')
@@ -20,10 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} /> {/* Use HomePage here */}
             <Route path="/login" element={<Login />} />
-            <Route 
-              path="/register" 
-              element={<Register />} 
-            />
+           
             <Route 
               path="/dashboard" 
               element={

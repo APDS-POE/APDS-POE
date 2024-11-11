@@ -20,9 +20,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Sonar Scanner
-          command: npm install -g sonarqube-scanner
-      - run:
           name: Run SonarQube Scanner
           command: |
             SONAR_BRANCH="circleci-project-setup"  # or the branch you’re testing
